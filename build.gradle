@@ -8,6 +8,8 @@ repositories {
 
 dependencies {
 	compile 'org.codehaus.groovy:groovy-all:2.1.7-SNAPSHOT'
+	compile 'org.fusesource.jansi:jansi:1.7'
+	compile 'jline:jline:1.0'
 }
 
 
