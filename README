@@ -1,0 +1,41 @@
+Groovy (Pseudo-)Debugger 
+
+== build ==
+
+Edit build.gradle dependencies section with the version of groovy you want to build gdb for.
+Warning: The resulting jar is incompatible with groovy of different minor version numbers
+
+example:
+    dependencies {
+        groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.7.10'
+    }   
+
+$ gradle jar
+
+
+== use ==
+
+1. Include the jar gdb.jar in the classpath of any groovy script
+2. add the line "com.gdb.GdbShell.gdb()" where you want a break point
+3. Break points give you a standard groovysh prompt with access to all the variables in scope. "this" can be accessed as "self". Ctrl-d continues
+
+examples:
+    groovy -cp ./build/libs/gdb.jar foo.groovy 
+
+    with grails:
+        grails -cp /path/to/groovy-debugger/build/libs/gdb.jar run-app
+
+    with grails 2.0:
+        #apparently grails 2.0 had done away with the -cp commandline option use this form instead:
+        CLASSPATH="$CLASSPATH:/path/to/groovy-debugger/build/libs/gdb.jar" grails run-app
+
+
+
+
+
+
+
+== How it works ==
+
+    AST transformation traverses code looking for calls to com.gdb.GdbShell.gdb(), and keeping track of variables that are in scope.
+    The gdb function calls the standard groovyShell and passes in bindings for all the scoped variables

@@ -1,0 +1,19 @@
+apply plugin: 'groovy'
+
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.1.7-SNAPSHOT'
+}
+
+
+jar {
+    archiveName= "repl.jar"
+    metaInf {
+        from './src/main/metainf' 
+    }
+}
